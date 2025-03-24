@@ -1,0 +1,13 @@
+# Kubernetes Architecture
+- The **Control plane** is a set of components that manage the cluster.
+- Control plane components:
+  - The **API server** is the central of the control plane, other components use it to communicate and interact with the cluster
+  - **etcd** is the distributed object storage used by the API server
+  - **Scheduler** assigns new pods to an appropriate worker node
+  - The **Controller manager** is bundles controllers, each of which provides some cluster functionality.
+  - The **Cloud controller manager** bundles controllers that interactive with cloud provider APIs.
+- Worker nodes are responsible for running container workloads.
+    - The **kube-proxy** manages local routing rules on the Node to route network traffic to pods.
+    - The **kubelet** is a Kubernetes agent that works with the container runtime to run containers on a node.
+    - The **Container runtime** is software that runs containers, such as containerd or CRI-O
+    - The Kubernetes CRI is a standard interface for container runtimes. Any runtime that implements CRI should work with Kubernetes.

@@ -1,0 +1,21 @@
+# Kubernetes Security
+
+- The 4Cs of cloud native security are:
+    - Cloud - Least control over
+    - Clusters
+    - Containers
+    - Code - Most control over
+- Authentication methods:
+    - Client certificates - Used by kubectl
+    - OpenID connect tokens - Uses a JSON Web Token (JWT) signed by the provider, used for integration with external identity providers
+    - And more!
+- Authorization methods:
+    - Node - Used by the kubelet to work with resources on a specific node
+    - Attribute Based Access Control (ABAC) - Use **policies** that refer to attributes of users, resources, etc to authorize access
+    - Role Based Access Controle (RBAC) - Assign **granular permissions** to roles, then assign roles to users
+    - Webhook - Reach out to an external service to authorize requests
+- OPA Gatekeeper - Create and enforce policies that control what cna and cannot be done in your Kubernetes environment
+    - Validates incoming requests according to policies
+    - API denies requests that violate policy are denied
+    - Is an external tool, not a Kubernetes specific tool
+- Control groups are used to provide isolation for container processes, keeping them separate from the other processes on the host.
