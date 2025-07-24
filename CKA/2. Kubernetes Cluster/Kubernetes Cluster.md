@@ -156,7 +156,7 @@ k get po coredns-674b8bbfcf-7knkh -o yaml -n kube-system | grep tolerations -A14
 
 ### 2.3.3 Container Storage Interface (CSI)
 
-- CSI Standardises how storage providers intefrate with container orchestrators
+- CSI Standardises how storage providers interface with container orchestrators
 - A CSI driver runs as an external component that handles volume operations (attach, mount, format, snapshot, etc)
 - CSI enables all cloud and storage providers to plug into Kubernetes in the same way
 - List CSI drivers using `k get csidrivers`

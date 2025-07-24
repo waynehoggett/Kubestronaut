@@ -1,5 +1,13 @@
 # VIM
 
+1. Install VIM in Kind
+
+```
+apt update
+apt install -y vim
+```
+
+
 > The following settings will already be configured in your real exam environment in ~/.vimrc. 
 
 1. Open .vimrc

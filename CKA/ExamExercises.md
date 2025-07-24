@@ -55,3 +55,24 @@ Use the crictl command-line tool to list the running containers. Stop and remove
 Use the kubectl command-line tool to determine what CNI is installed with the cluster. Also determine what version the CNI is currently running.
 
 Use the kubectl command-line tool to list the CSI drivers in your Kubernetes cluster as well as the CSI storageClasses.
+
+# 3
+
+## 3.1 
+
+Create a new role named `sa-creator` that will allow creating service accounts.
+
+Create a role binding that is associated with the previous `sa-creator` role, named `sa-creator-binding` that will bind to the user `Sandra`.
+
+## 3.2
+
+Create a new user named “Sandra”, first creating the private key, then the certificate signing request, then using the CSR resource in Kubernetes to generate the client certificate.
+
+Add that new user “Sandra” to your local kubeconfig using the kubectl config command.
+
+
+## 3.3
+
+Create a new service account named ’secure-sa’ and create a pod that uses the ‘secure-sa’ service account. Make sure the token is not exposed to the pod.
+
+Create a new cluster role named ‘acme-corp-role’ that will allow the create action on deployments, replicates, and daemonsets. Bind that cluster role to the service account ’secure-sa’ and make sure the service account can only create the assigned resources within the default namespace and nowhere else. Use auth can-i to verify that the ‘secure-sa’ service account cannot create deployments in the kube-system namespace and output the result of the command + the command itself to a file and share that file.
