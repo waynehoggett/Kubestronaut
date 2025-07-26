@@ -76,3 +76,21 @@ Add that new user “Sandra” to your local kubeconfig using the kubectl config
 Create a new service account named ’secure-sa’ and create a pod that uses the ‘secure-sa’ service account. Make sure the token is not exposed to the pod.
 
 Create a new cluster role named ‘acme-corp-role’ that will allow the create action on deployments, replicates, and daemonsets. Bind that cluster role to the service account ’secure-sa’ and make sure the service account can only create the assigned resources within the default namespace and nowhere else. Use auth can-i to verify that the ‘secure-sa’ service account cannot create deployments in the kube-system namespace and output the result of the command + the command itself to a file and share that file.
+
+# 4
+
+## 4.1
+
+Apply the label “disk=ssd” to a node. Create a pod named “fast” using the nginx image and make sure that it selects a node based on the label “disk=ssd”.
+
+Edit the “fast” pod using kubectl edit po fast and change the node selector to “disk=slow”. Notice that the pod cannot be changed and the YAML was saved to a temporary location. Take the YAML in /tmp/ and apply it by force to delete and recreate the pod using a single imperative command.
+
+Create a new pod named “ssd-pod” using the nginx image, and use node affinity to select nodes based on a weight of 1, to nodes that have a label disk=ssd. If the selection criteria doesn’t match, it can also choose nodes that have a label kubernetes.io/os=linux
+
+## 4.2
+
+Create a pod named “limited” with the image “httpd” and set the resource requests to “1Gi” for CPU and “100Mi” for memory.
+
+Create a deployment named “overloaded” running three replicas of pods. Inside the pod is an initContainer and a main container. For the initContainer, use the busybox image and keep it running by issuing the command “/bin/bash sleep 1d”. Set the CPU requests to 250 millicores and Memory requests to 600 mebibytes. For the main container, use the nginx image. Set the CPU requests to 250 millicores and Memory requests to 600 mebibytes. See if the pods within the deployment get to a running state. If not, adjust the requests to get all three replicas up and running.
+
+Create a configmap named “ui-data” with the key and value pairs below Apply a configmap to a pod named “frontend” with the image “busybox:1.28” and pass it to the pod via the following environment variables:
