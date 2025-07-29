@@ -94,3 +94,10 @@ Create a pod named “limited” with the image “httpd” and set the resource
 Create a deployment named “overloaded” running three replicas of pods. Inside the pod is an initContainer and a main container. For the initContainer, use the busybox image and keep it running by issuing the command “/bin/bash sleep 1d”. Set the CPU requests to 250 millicores and Memory requests to 600 mebibytes. For the main container, use the nginx image. Set the CPU requests to 250 millicores and Memory requests to 600 mebibytes. See if the pods within the deployment get to a running state. If not, adjust the requests to get all three replicas up and running.
 
 Create a configmap named “ui-data” with the key and value pairs below Apply a configmap to a pod named “frontend” with the image “busybox:1.28” and pass it to the pod via the following environment variables:
+
+
+# 5
+
+## 5.1
+
+Create a deployment named “apache” that uses the image httpd:2.4.54 and contains three pod replicas. After the deployment has been created, scale the deployment to five replicas and change the image to httpd:alpine.

@@ -51,6 +51,9 @@ echo "set expandtab" >> ~/.vimrc
 echo "set tabstop=2" >> ~/.vimrc
 echo "set shiftwidth=2" >> ~/.vimrc
 
+# Set up K Alias
+echo "alias k=kubectl" >> ~/.bashrc
+
 # Set up Autocomplete
 apt install bash-completion
 echo '# Source bash completion
