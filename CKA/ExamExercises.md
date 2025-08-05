@@ -101,3 +101,10 @@ Create a configmap named “ui-data” with the key and value pairs below Apply 
 ## 5.1
 
 Create a deployment named “apache” that uses the image httpd:2.4.54 and contains three pod replicas. After the deployment has been created, scale the deployment to five replicas and change the image to httpd:alpine.
+
+
+# 6
+
+## 6.1
+
+Exam Task In your cluster, change the IP addresses given to new Services to a CIDR range of 100.96.0.0/16. Change the IP address associated with the cluster DNS Service to match this new Service range. Proceed to change the kubelet configuration so that new Pods can receive the new DNS Service IP address, and so they can resolve domain names. Edit the kubelet ConfigMap so that the kubelet is updated in place and immediately reflected. Upgrade the node to receive the new kubelet configuration. Finally, test this by creating a new Pod and verifying that the Pod has the new IP address of the DNS Service.
