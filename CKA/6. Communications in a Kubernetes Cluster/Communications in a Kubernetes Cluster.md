@@ -14,18 +14,26 @@
 1. To change the IP addresses given to new Services to a CIDR range:
   - Modify the API configuration in /etc/kubernetes/manifests/kube-apiserver.yaml
   - `vim /etc/kubernetes/manifests/kube-apiserver.yaml`
-  - Edit ``
+  - Edit `--service-cluster-ip-range=`
   - Save and close the file
-1. To Change the IP address associated with the cluster DNS Service to match this new Service range
+2. Change the IP address associated with the cluster DNS Service to match this new Service range
   - Edit the Service named kube-dns in the kube-system namespace
-  - ``
-1. Change the kubelet configuration so that new Pods can receive the new DNS Service IP address, and so they can resolve domain names
-  - Modify the kubelet configuration at /var/lib/kubelet/config.yaml
-1. Edit the kubelet ConfigMap so that the kubelet is updated in place and immediately reflected
-  - 
-1. Upgrade the node to receive the new kubelet configuration
-  - 
-1. Test by creating a new Pod and verifying that the Pod has the new IP address of the DNS Service
+  - `k edit svc -n kube-system kube-dns`
+  - It will error when you save, but edit both the `clusterIP` and `clusterIPs`
+  - Save the temporary file, and then forcible apply it with `k replace -f <tmp-file-name> --force`
+3. Change the kubelet configuration so that new Pods can receive the new DNS Service IP address, and so they can resolve domain names
+  - Modify the kubelet configuration at `/var/lib/kubelet/config.yaml`
+  - Change the section called `clusterDNS:` to the new service IP
+4. Edit the kubelet ConfigMap so that the kubelet is updated in place and immediately reflected
+  - `k -n kube-system edit cm kubelet-config`
+  - Change the section called `clusterDNS:` to the new service IP
+5. Upgrade the node to receive the new kubelet configuration
+  - `kubeadm upgrade node phase kubelet-config`
+6. Reload the daemon:
+  - `systemctl daemon-reload`
+7. Restart the service:
+  - `systemctl restart kubelet`
+8. Test by creating a new Pod and verifying that the Pod has the new IP address of the DNS Service
   - `kubectl run netshoot --image=nicolaka/netshoot --command sleep --command "3600"`
   - `k exec -it netshoot -- bash`
   - `cat /etc/resolv.conf`
