@@ -11,11 +11,12 @@
 - Some components of the `kube-dns` service cannot be edited while it is running, use `k edit` to update the manifest and then use `k replace -f <temp-filepath> --force` to forcibly replace it
 - You can use commands like `systemctl stop kubelet systemctl start kubelet, systemctl restart kubelet, and systemctl daemon-reload` to manage the kubelet
 - This is a handly image for troubleshooting DNS, it comes pre-installed with tools: `kubectl run netshoot --image=nicolaka/netshoot --command sleep --command "3600"`
+- Don't follow this process, it's not supported and doesn't work!
 1. To change the IP addresses given to new Services to a CIDR range:
   - Modify the API configuration in /etc/kubernetes/manifests/kube-apiserver.yaml
   - `vim /etc/kubernetes/manifests/kube-apiserver.yaml`
   - Edit `--service-cluster-ip-range=`
-  - Save and close the file
+  - Save and close the file `esc` `:wq`
 2. Change the IP address associated with the cluster DNS Service to match this new Service range
   - Edit the Service named kube-dns in the kube-system namespace
   - `k edit svc -n kube-system kube-dns`
@@ -39,3 +40,11 @@
   - `cat /etc/resolv.conf`
   - Check IP address
   - `nslookup <some domain>`
+
+  ## 6.2 Core DNS
+
+  - Enables fast name resolution within the cluster
+
+  ### 6.2.1 Config Files
+
+  - The kubelet is responsible for creating the CoreDNS Pod and inkecting the configuration from `/var/lib/kubelet/config.yaml` into that pod, this is a special type of configuration file, just for the kubelet
