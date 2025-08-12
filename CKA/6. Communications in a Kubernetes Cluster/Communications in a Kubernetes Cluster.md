@@ -41,10 +41,27 @@
   - Check IP address
   - `nslookup <some domain>`
 
-  ## 6.2 Core DNS
+## 6.2 Core DNS
 
-  - Enables fast name resolution within the cluster
+- Enables fast name resolution within the cluster
 
-  ### 6.2.1 Config Files
+### 6.2.1 Config Files
 
-  - The kubelet is responsible for creating the CoreDNS Pod and inkecting the configuration from `/var/lib/kubelet/config.yaml` into that pod, this is a special type of configuration file, just for the kubelet
+- The kubelet is responsible for creating the CoreDNS Pod and inkecting the configuration from `/var/lib/kubelet/config.yaml` into that pod, this is a special type of configuration file, just for the kubelet
+
+### 6.2.2 Replicating DNS
+
+- CoreDNS runs as a deployment that can be scaled up and down to improve DNS performance
+- Run `kubectl -n kube-system get deploy` to view the system deployments
+
+### 6.2.3 Pod-to-Pod connectivity
+
+- The fully qualified domain name (FQDN) for Services in a Kubernetes cluster is <service-name>.<namespace-name>.svc.cluster.local
+- The `/etc/resolv.conf` file in each pod provides the DNS Suffix search list for the pod, which includes the namespace the pod is in, and the svc.cluster.local and cluster.local namespaces
+- Pods also all have a DNS address that is the IP address with dots converted to dashes, for example: `10-244-0-14.default.pod.cluster.local`
+
+
+## 6.3 Ingress and Ingress Controllers
+
+
+

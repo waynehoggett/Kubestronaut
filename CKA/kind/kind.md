@@ -19,7 +19,7 @@
     kind create cluster
     ```
 
-### Multi-node Cluster
+## Multi-node Cluster
 
 1. This also sets a name so it can coexist with the other cluster
 
@@ -65,11 +65,33 @@ echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
 source ~/.bashrc
 ```
 
+## Create an Ingress-enabled cluster
 
+1. Create a kind cluster with additional exposed ports:
 
-1. Consider setting up the `k ` alias and [autocompletion](../../autocompletion.md).
+    ```bash
+    kind create cluster --name ingress --config C:\repos\Kubestronaut\CKA\kind\ingress.yaml
+    ```
 
-### Delete a Cluster
+1. Exec into the cluster control plane
+
+    ```bash
+    docker exec -it ingress-control-plane bash
+    ```
+
+1. Install an ingress Controller:
+
+    ```bash
+    kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+    ```
+
+    OR 
+
+    ```bash
+    kubectl apply -f https://raw.githubusercontent.com/chadmcrowell/acing-the-cka-exam/main/ch_06/nginx-ingress-controller.yaml
+    ```
+
+## Delete a Cluster
 
 1. Delete a cluster
 
