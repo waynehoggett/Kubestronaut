@@ -102,6 +102,35 @@ Create a configmap named “ui-data” with the key and value pairs below Apply 
 
 Create a deployment named “apache” that uses the image httpd:2.4.54 and contains three pod replicas. After the deployment has been created, scale the deployment to five replicas and change the image to httpd:alpine.
 
+
+# 6
+
+## 6.1
+
+Exam Task In your cluster, change the IP addresses given to new Services to a CIDR range of 100.96.0.0/16. Change the IP address associated with the cluster DNS Service to match this new Service range. Proceed to change the kubelet configuration so that new Pods can receive the new DNS Service IP address, and so they can resolve domain names. Edit the kubelet ConfigMap so that the kubelet is updated in place and immediately reflected. Upgrade the node to receive the new kubelet configuration. Finally, test this by creating a new Pod and verifying that the Pod has the new IP address of the DNS Service.
+
+## 6.2
+
+exec into a Pod and cat out the DNS resolver file to see the IP address of the DNS server that the Pod uses to resolve domain names.
+
+Open the file that contains the configuration for the kubelet and change the value for clusterDNS to 100.96.0.10. Save and quit the file.
+
+Stop and reload the kubelet daemon. Verify that the Service is active and running.
+
+Locate the kube-dns Service. Try to edit the Service in place by changing the value of both clusterIP and ClusterIPs to 100.96.0.10. When the values cannot be updated, force a replacement of the Service with the correct kubectl command-line argument.
+
+Edit the ConfigMap that contains the kubelet configuration. Change the IP address value that is set for clusterDNS to 100.96.0.10. Make sure to edit the resource without writing a new YAML file.
+
+Scale the CoreDNS Deployment to three replicas. Verify that the Pods have been created as a part of that Deployment.
+
+Test access from a Pod to a Service by first creating a Deployment with the apache image, followed by exposing that Deployment. Create a Pod from the netshoot image, and verify that you can reach the Service that you just created.
+
+Using the netshoot Pod created in the previous exercise, locate the Service in the default namespace by its DNS name. Use as few letters as possible for DNS search functionality.
+
+## 6.3
+
+Exam Task In your cluster, install an Ingress controller to proxy communication into the cluster via an Ingress resource. Then, create a Deployment named hello using the image nginxdemos/hello:plain-text. The container is exposed on port 80. Create a Service named hello-svc that targets the hello Deployment on port 80. Then, create an Ingress resource that will allow you to resolve the DNS name hello.com to the ClusterIP Service named hello-svc in Kubernetes.
+
 ### Series
 
 Using kubectl, create a deployment named “apache” using the image “httpd:latest” with one replica. After the deployment is running, scale the replicas up to 5.
