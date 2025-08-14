@@ -101,3 +101,34 @@ Create a configmap named “ui-data” with the key and value pairs below Apply 
 ## 5.1
 
 Create a deployment named “apache” that uses the image httpd:2.4.54 and contains three pod replicas. After the deployment has been created, scale the deployment to five replicas and change the image to httpd:alpine.
+
+### Series
+
+Using kubectl, create a deployment named “apache” using the image “httpd:latest” with one replica. After the deployment is running, scale the replicas up to 5.
+
+Update the image for the deployment “apache” from “httpd:latest” to “httpd:2.4.63”. Do not create a new YAML file or edit the existing resource (only use kubectl).
+
+Using kubectl, view the events of the ReplicaSet that was created as a result of the image change from the previous exercise.
+
+Using kubectl, rollback to the previous version of the deployment named “apache”
+
+For the existing deployment named “apache”, change the rollout strategy for a deployment to "Recreate".
+
+
+## 5.2
+
+The node named “kind-worker” in the cluster is experiencing problems with leaking memory. You must take down the node for maintenance by first disabling the scheduling of new pods to the node “kind-worker”. Then, evict all pods that are currently running on “kind-worker”. Finally, once you’ve verified that there are no pods running on “kind-worker”, enable scheduling once again.
+
+There’s a third node in the cluster named “ik8s”, but it is not appearing when you perform the kubectl get nodes command. The name of the node is node02. Allow node02 to join the cluster by re-creating the join command and ensure that the node is in a “Ready” state when you list all the nodes in the cluster.
+
+From a three node cluster, cordon one of the worker nodes. Schedule a pod without a nodeselector. Uncordon the worker node and edit the pod, applying a new node name to the YAML (set it to the node that was just uncordoned). After replacing the YAML, see if the pod is scheduled to the recently uncordoned node.
+
+Start a basic nginx deployment, remove the taint from the control plane node, so that pods don’t need a toleration to be scheduled to it. Add a node selector to the pod spec within the deployment and see if the pod is now running on the control plane node.
+
+## 5.3 Using Helm and Kustomize
+
+- Kustomize and Helm both manage Kubernetes YAML files
+- Helm is a package manager and uses template files
+- Kustomize applies kustomizations to existing YAML files
+
+## 5.4
